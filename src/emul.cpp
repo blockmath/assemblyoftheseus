@@ -1,4 +1,4 @@
-
+#include "emul.hpp"
 
 void Emul::tick() {
 	uint32 iword = *(uint32 *)&memory[eip];

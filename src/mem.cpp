@@ -1,3 +1,5 @@
+#include "mem.hpp"
+
 #include <stdlib.h>
 
 Mem::Mem() {
