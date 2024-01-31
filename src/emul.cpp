@@ -13,7 +13,7 @@ void Emul::tick() {
 	byte arg1 = (iword >> 16) & 0xff;
 	byte arg2 = (iword >> 8) & 0xff;
 	int dr = (iword >> 24) & 0b00000111;
-	byte *rptr = memory + eip + dr;
+	byte *rptr = &memory[0] + eip + dr;
 	eip += 4;
 	switch (iword >> 27) {
 		case 0: // jump
