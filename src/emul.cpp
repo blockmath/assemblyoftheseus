@@ -55,3 +55,12 @@ void Emul::tick() {
 	}
 
 }
+
+#include <stdio.h>
+
+size_t Emul::load(const char *file, size_t maxLengthBytes) {
+	FILE *file = fopen(file, "rb");
+	size_t yield = fread(&memory[0], 1, maxLengthBytes, file);
+	fclose(file);
+	return yield;
+}
