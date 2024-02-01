@@ -11,5 +11,5 @@ public:
 	MemoryClass<byte, 29> memory;
 	Emul();
 	void tick();
-	int load(const char *file);
+	size_t load(const char *file, size_t maxLengthBytes);
 };
