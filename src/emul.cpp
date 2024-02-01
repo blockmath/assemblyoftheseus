@@ -7,9 +7,9 @@ Emul::Emul() {
 
 
 void Emul::tick() {
-	uint32 iword = *(uint32 *)&memory[eip];
+	uint32 iword = ((uint32)memory[eip] << 24) | ((uint32)memory[eip + 1] << 16) | ((uint32)memory[eip + 2] << 8) | ((uint32)memory[eip + 3]);
 	if ((iword >> 27) == 0b11111) { // datamove (up for change)
-		uint32 iword2 = *(uint32 *)&memory[eip+4];
+		uint32 iword2 = ((uint32)memory[eip+4] << 24) | ((uint32)memory[eip+5] << 16) | ((uint32)memory[eip+6] << 8) | ((uint32)memory[eip+7]);
 		iword = (iword & 0x07ffffff) << 2;
 		iword2 = (iword & 0x07ffffff) << 2;
 		*(uint32 *)&memory[iword2] = *(uint32 *)&memory[iword];
