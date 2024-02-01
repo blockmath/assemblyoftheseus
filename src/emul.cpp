@@ -1,5 +1,11 @@
 #include "emul.hpp"
 
+Emul::Emul() {
+	memory = MemoryClass<byte, 29>();
+	eip = 0;
+}
+
+
 void Emul::tick() {
 	uint32 iword = *(uint32 *)&memory[eip];
 	if ((iword >> 27) == 0b11111) { // datamove (up for change)
@@ -13,7 +19,7 @@ void Emul::tick() {
 	byte arg1 = (iword >> 16) & 0xff;
 	byte arg2 = (iword >> 8) & 0xff;
 	int dr = (iword >> 24) & 0b00000111;
-	byte *rptr = &memory[0] + eip + dr;
+	byte *rptr = &memory[eip+dr];
 	eip += 4;
 	switch (iword >> 27) {
 		case 0: // jump
@@ -39,9 +45,6 @@ void Emul::tick() {
 			break;
 		case 7: // eor
 			*rptr = arg1 ^ arg2;
-			break;
-		case 29: // bra
-			eip = (eip - 4)+(arg2 << 2);
 			break;
 		case 30: // beq
 			if (arg1 == 0)
