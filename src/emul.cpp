@@ -46,6 +46,9 @@ void Emul::tick() {
 		case 7: // eor
 			*rptr = arg1 ^ arg2;
 			break;
+		case 8://print
+			std::cout<<arg1;
+			break;
 		case 30: // beq
 			if (arg1 == 0)
 				eip = (eip - 4)+(arg2 << 2);
