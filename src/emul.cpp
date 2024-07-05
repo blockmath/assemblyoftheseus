@@ -5,6 +5,10 @@ Emul::Emul() {
 	eip = 0;
 }
 
+void Emul::HCF(){
+	std::cout<<"The virtual machine caught on virtual fire. Task was failed successfully.:D"<<std::endl;
+	exit(); //add ASCII art and sounds later
+}
 
 void Emul::tick() {
 	uint32 iword = ((uint32)memory[eip] << 24) | ((uint32)memory[eip + 1] << 16) | ((uint32)memory[eip + 2] << 8) | ((uint32)memory[eip + 3]);
@@ -23,7 +27,7 @@ void Emul::tick() {
 	eip += 4;
 	switch (iword >> 27) {
 		case 0: // jump
-			if(eip - 4 == iword << 2) {std::cout<<"The virtual machine caught on virtual fire. Task was failed successfully."<<std::endl;exit(0);}
+			if(eip - 4 == iword << 2) HCF();
 			eip = iword << 2;
 			break;
 		case 1: // add
@@ -52,7 +56,7 @@ void Emul::tick() {
 			break;
 		case 30: // beq
 			if (arg1 == 0){
-				if(arg2 == 0) {std::cout<<"The virtual machine caught on virtual fire. Task was failed successfully."<<std::endl;exit(0);}
+				if(arg2 == 0) HCF();
 				eip = (eip - 4)+(arg2 << 2);
 			}
 			break;
