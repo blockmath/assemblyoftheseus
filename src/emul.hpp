@@ -6,6 +6,8 @@ typedef unsigned int uint32;
 
 
 class Emul {
+private:
+	void HCF();
 public:
 	uint32 eip;
 	MemoryClass<byte, 29> memory;
