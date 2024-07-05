@@ -23,6 +23,7 @@ void Emul::tick() {
 	eip += 4;
 	switch (iword >> 27) {
 		case 0: // jump
+			if(eip - 4 == iword << 2) {std::cout<<"The virtual machine caught on virtual fire. Task was failed successfully."<<std::endl;exit(0);}
 			eip = iword << 2;
 			break;
 		case 1: // add
@@ -46,12 +47,14 @@ void Emul::tick() {
 		case 7: // eor
 			*rptr = arg1 ^ arg2;
 			break;
-		case 8://out/print
+		case 8:// out
 			std::cout<<arg1;
 			break;
 		case 30: // beq
-			if (arg1 == 0)
+			if (arg1 == 0){
+				if(arg2 == 0) {std::cout<<"The virtual machine caught on virtual fire. Task was failed successfully."<<std::endl;exit(0);}
 				eip = (eip - 4)+(arg2 << 2);
+			}
 			break;
 		case 31: // datamove
 			break;
